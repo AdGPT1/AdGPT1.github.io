@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      .image-text-pair {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-      }
+<head>
+  <title>Image-Text Pairs</title>
+  <style>
+    .image-text-pair {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-      .image-text-pair img {
-        width: 200px;
-        margin-right: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Image-Text Pairs</h1>
+    .image-text-pair img {
+      width: 200px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image-Text Pairs</h1>
 
-    <div id="imageTextPairs"></div>
+  <div id="imageTextPairs"></div>
 
-    <script>
-      // Function to create an image-text pair
-      function createImageTextPair(imageSrc, textContent) {
-        var pairContainer = document.createElement("div");
-        pairContainer.classList.add("image-text-pair");
+  <script>
+    // Function to create an image-text pair
+    function createImageTextPair(imageSrc, textContent) {
+      var pairContainer = document.createElement('div');
+      pairContainer.classList.add('image-text-pair');
 
-        var image = document.createElement("img");
-        image.src = imageSrc;
-        image.alt = "Image";
-        pairContainer.appendChild(image);
+      var image = document.createElement('img');
+      image.src = imageSrc;
+      image.alt = 'Image';
+      pairContainer.appendChild(image);
 
-        var text = document.createElement("p");
-        text.textContent = textContent;
-        pairContainer.appendChild(text);
+      var text = document.createElement('p');
+      text.textContent = textContent;
+      pairContainer.appendChild(text);
 
-        return pairContainer;
-      }
+      return pairContainer;
+    }
 
-      var imageTextPairsContainer = document.getElementById("imageTextPairs");
+    var imageTextPairsContainer = document.getElementById('imageTextPairs');
 
-      // Image filenames
-      var imageFilenames = ["image1.jpg","image2.jpg","image3.jpg","image4.jpg","image5.jpg","image6.jpg"]; // Replace with your actual image filenames
+    // Image filenames
+    var imageFilenames = ['image1.jpg', 'image2.jpg', 'image3.jpg','image4.jpg', 'image5.jpg', 'image6.jpg']; // Replace with your actual image filenames
 
-      // Text filenames
-      var textFilenames = ["image1.txt","image2.txt","image3.txt","image4.txt","image5.txt","image6.txt"]; // Replace with your actual text filenames
+    // Text filenames
+    var textFilenames = ['image1.txt', 'image2.txt', 'image3.txt','image4.txt', 'image5.txt', 'image6.txt']; // Replace with your actual text filenames
 
-      // Assuming the number of images and texts are the same
-      for (var i = 0; i < imageFilenames.length; i++) {
-        var imageSrc = "images/" + imageFilenames[i];
-        var textFile = "texts/" + textFilenames[i];
+    // Assuming the number of images and texts are the same
+    for (var i = 0; i < imageFilenames.length; i++) {
+      (function(index) {
+        var imageSrc = 'images/' + imageFilenames[index];
+        var textFile = 'texts/' + textFilenames[index];
 
         fetch(textFile)
-          .then(function (response) {
+          .then(function(response) {
             return response.text();
           })
-          .then(function (textContent) {
+          .then(function(textContent) {
             var pair = createImageTextPair(imageSrc, textContent);
             imageTextPairsContainer.appendChild(pair);
           });
-      }
-    </script>
-  </body>
+      })(i);
+    }
+  </script>
+</body>
 </html>
